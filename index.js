@@ -16,10 +16,14 @@ The function should:
 */
 
 
-function createMenuItem(/*Your code here*/){
-  /*Your code here*/
+function createMenuItem(name, price, category){
+  return {
+    name: name,
+    price: price,
+    category: category
+  }
 }
-
+console.log(createMenuItem('tacos', 8, 'Lunch'));
 
 
 /* 🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀 Task 1b (not auto-tested): 🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀
@@ -31,7 +35,9 @@ Test your createMenuItems function by doing the following:
   
   For example: createMenuItem("pizza",5,"lunch") would return this as the object: {name:"Pizza",price:5,category:"lunch"}
 */
-
+console.log(createMenuItem('tacos', 8, 'Lunch'));
+console.log(createMenuItem('pizza', 8, 'Lunch'));
+console.log(createMenuItem('chicken', 8, 'Lunch'));
 
 
 /* 🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀 Task 2: 🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀
@@ -50,9 +56,19 @@ Using the burger object below do the following:
 const burger = {
   name: "Burger", 
   price: 18, 
-  category: "Lunch", 
-  
+  category: "Lunch",
+  discount: function(aString) {
+    if(aString === "teacher" || aString === "student") {
+      return this.price * 0.75;
+    } else if(aString === "public") {
+      return this.price * 0.90;
+    } else {
+      return this.price;
+    }
+  }
 }
+console.log(burger.discount("teacher"));
+console.log(burger.discount("public"));
 
 
 
@@ -72,7 +88,7 @@ const reviews = [
 Using the reviews array above:
   1. log only Julius' feedback to the console - no function needed 
 */
-
+console.log(reviews[5].feedback);
 
 
 /* 🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀 Task 4 (not auto-tested): 🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀 
@@ -80,7 +96,8 @@ Reyna's feedback is missing! Use what you know to do the following: (no function
   1. Add this feedback to Reyna's rating - "this place is chill with really cool people, great for getting work done on weekdays"
   2. log the reviews array to the console to check your work
 */
-
+reviews[7].feedback = "this place is chill with really cool people, great for getting work done on weekdays";
+console.log(reviews);
 
 
 /* 🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀 Task 5: 🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀
@@ -93,10 +110,16 @@ Write a function that creates an object with name, rating, feedback, add the new
 */
 
 
-function addReview(/*Your Code Here */){
-  /*Your Code Here */
+function addReview(anArray, name, rating, feedback){
+  const newObject = {
+    name: name,
+    rating: rating,
+    feedback: feedback
+  }
+  anArray.push(newObject);
+  return anArray;
 }
-
+console.log(addReview(reviews, 'Daniela', 5, 'Beautiful atmosphere and wonderful vegan options!'));
 
 
 /* 🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀 Task 6: 🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀
@@ -110,10 +133,10 @@ Use the getReviewByIndex function below to do the following:
 */
 
 
-function getReviewByIndex(/*Your code here*/) {
-  /*Your code here*/
+function getReviewByIndex(anArray, anIndex) {
+  return anArray[anIndex].name + ' gave the restaurant a ' + anArray[anIndex].rating + ' star review, and their feedback was: ' + anArray[anIndex].feedback;
 }
-
+console.log(getReviewByIndex(reviews, 0));
   
 
 /* 🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀 Task 7: 🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀 
@@ -129,10 +152,11 @@ Use the getLastReview function below to do the following:
 */
 
 
-function getLastReview(/*Your code here*/) {
-  /*Your code here*/
+function getLastReview(anArray) {
+  const lastReviewIndex = anArray.length - 1;
+  return anArray[lastReviewIndex].name + ' gave the restaurant a ' + anArray[lastReviewIndex].rating + ' star review, and their feedback was: ' + anArray[lastReviewIndex].feedback;
 } 
-
+console.log(getLastReview(reviews));
 
 
 ///////////////🍔☕️🍽 STRETCH🍔☕️🍽////////////////////
@@ -151,9 +175,14 @@ Use the getReviewsByRating function below to do the following:
   ]
 */
 
- function getReviewByRating(/* code here */) {
-    /* code here */
+ function getReviewByRating(anArray, aRating) {
+    let anArrayRange = [];
+    for(let i = 0; i < anArray.length; i++) {
+      if(anArray[i].rating >= aRating && anArray[i].rating < (aRating + 1)) anArrayRange.push(anArray[i]);
+    }
+    return anArrayRange;
   }
+  console.log(getReviewByRating(reviews, 4));
 
   
 /* 💪💪💪💪💪💪💪💪💪💪 STRETCH 2: 💪💪💪💪💪💪💪💪💪💪   
@@ -169,9 +198,14 @@ Use the getLongReviews function below to do the following:
   ]
 */
 
-function getLongReviews(/* code here */) {
-    /* code here */
-  }
+function getLongReviews(anArray) {
+    let anArrayRange = [];
+    for(let i = 0; i < anArray.length; i++) {
+      if((anArray[i].feedback.match(/ /g) || []).length >= 14) anArrayRange.push(anArray[i]);
+    }
+    return anArrayRange;
+}
+console.log(getLongReviews(reviews));
   
 
 /* 💪💪💪💪💪💪💪💪💪💪 STRETCH 3: 💪💪💪💪💪💪💪💪💪💪 
@@ -190,12 +224,18 @@ Use the carMaker function below to do the following:
   Then we called car1.drive(100)
   It would return 110 because it was created with 10 as the odometer and we added 100 to it with the drive method 
 */
+let car1 = {};
 
-
-function carMaker(/* code here */) {
-    /* code here */
-    
+function carMaker(odometer) {
+  car1.odometer = odometer;
+  car1.drive = function(distance) {
+      car1.odometer = this.odometer + distance;
+      return this.odometer;
+    }
+  return car1;
 }
+console.log(carMaker(10));
+console.log(car1.drive(100));
 
 
 /* 🛑🛑🛑🛑🛑 Please do not modify anything below this line 🛑🛑🛑🛑🛑 */
